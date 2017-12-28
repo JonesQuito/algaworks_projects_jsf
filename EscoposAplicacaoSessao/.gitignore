@@ -1,5 +1,5 @@
-/.metadata/
+/build/
 
-/.recommenders/
-/RemoteSystemsTempFiles/
-/Servers/
+/.settings/
+/.classpath/
+/.project/
