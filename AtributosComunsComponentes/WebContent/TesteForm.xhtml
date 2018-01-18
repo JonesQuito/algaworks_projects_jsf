@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Teste</title>
+
+<style>
+	.campo{
+		background-color: #c0c0c0;
+		padding: 10px;
+	}
+	
+	.campo:focus {
+		background-color: yellow	
+	}
+</style>
+<script>
+	function validar() {
+		campoEmail = document.getElementById('newslatterForm:email');
+		if(campoEmail.value == ''){
+			alert("Informe seu email...");
+			document.getElementById('paragrafo').innerHTML = 'Email não foi cadastrado'
+			return false;
+		}
+		status = true;
+		return true;
+	}
+	
+	function changeParagrafo(target, texto){
+		target.innerHTML = texto;
+	}
+</script>
+</h:head>
+
+
+<h:body>
+	<h:form id="newslatterForm">
+		<h:outputLabel value="Assine nossa newslatter" rendered="true"/>
+		<br/>
+		
+		<h:inputText value="Seu e-mail aqui" id="email"
+		 size="40" maxlength="30" title="Informe seu e-mail aqui"
+		 onfocus="this.value = ''"
+		 onkeyup="changeParagrafo(document.getElementById('paragrafo'), this.value)"
+		 style="font-size: 19px" styleClass="campo"/>
+		 
+		 <h:commandButton id="assinarBotao" value="Assinar"
+		 	onclick="return validar(); name()"/>
+	</h:form>
+	
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	
+	<h2>Target</h2>
+	<p id="paragrafo">..</p>
+
+</h:body>
+</html>
