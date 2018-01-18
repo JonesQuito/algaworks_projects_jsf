@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+
+  
+  <!-- DEFININDO A FORMA DE APRESENTAÇÃO DAS MENSAGENS DE ERRO DURANTE DESENVOLVIMENTO -->
+  <context-param>
+  	<param-name>javax.faces.PROJECT_STAGE</param-name>
+  	<param-value>Development</param-value>
+  </context-param>
+  
+  
+  <!-- DEFININDO NOME E CLASSE DO SERVLET JSF -->
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <!-- MAPEANDO O SERVLET PRA RESPONDER A TODAS SOLICITÇÕES POR PÁGINAS .XHTML -->
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.xhtml</url-pattern>
+  </servlet-mapping>
+  
+  <!-- FILTRO PARA DETERMINAR QUE O SERVIDOR USE O ENCODING UTF-8 -->
+  <filter>
+  	<filter-name>Encoder</filter-name>
+  	<filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+  	<init-param>
+  		<param-name>enconding</param-name>
+  		<param-value>UTF-8</param-value>
+  	</init-param>
+  </filter>
+  
+  <!-- MAPEANDO O FILTRO Encoder PARA TRATAR TODA REQUISIÇÃO -->
+  <filter-mapping>
+  	<filter-name>Encoder</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+</web-app>
