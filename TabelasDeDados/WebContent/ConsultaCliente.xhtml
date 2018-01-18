@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Insert title here</title>
+</h:head>
+<h:body>
+	<h:form id="frm">
+		<h:commandButton value="Consultar" action="#{consultaClienteBean.consultar}"/>
+		
+		<h:dataTable value="#{consultaClienteBean.clientes}" var="cliente"
+			border="1" rendered="#{not empty consultaClienteBean.clientes}">
+			<h:column>
+				<f:facet name="header">Código</f:facet>
+				<h:inputText value="#{cliente.codigo}" size="2"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputLink value="http://www.google.com.br/search?q=#{cliente.nome}">
+					<h:outputText value="#{cliente.nome}"/>
+				</h:outputLink>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Cidade</f:facet>
+				<h:outputText value="#{cliente.cidade}"/>
+				<h:outputLink value="http://www.google.com.br/search?tbm=isch&amp;q=#{cliente.cidade}"
+					title="imagens de #{cliente.cidade}">
+					<h:graphicImage value="/imagens/fotos.png"/>
+				</h:outputLink>
+			</h:column>
+
+		</h:dataTable>
+		
+		<h:commandButton value="Salvar" action="#{consultaClienteBean.salvar}"
+			rendered="#{not empty consultaClienteBean.clientes}"/>
+	</h:form>
+
+</h:body>
+</html>
