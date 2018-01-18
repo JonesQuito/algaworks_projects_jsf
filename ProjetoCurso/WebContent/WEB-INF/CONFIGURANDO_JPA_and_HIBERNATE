@@ -1,0 +1,43 @@
+PASSO UM:
+	Fazer download dos JARs do hibernate e do drive de conexão JDBC do mysql
+	
+	
+PASSO DOIS:
+	No build path do java, criar uma nova biblioteca(libraries) e adicionar
+	os JARs baixados na etapa anterior. É importante observar que os jars 
+	necessários para o hibernate estão na pasta lib/required.
+	Adicionar também o drive de conexão na biblioteca criada para os jars
+	do hibernate ou criar uma nova biblioteca para o drive JDBC
+	
+	
+PASSO TRÊS:
+	Nas propriedades do projeto -> Deployment Assembly, adicionar uma
+	nova entrada para o build path do java(Java Build Path Entries)
+	fazendo referência à(s) biblioteca(s) que foram criadas para o
+	hibernate e JDBC.
+	
+
+PASSO QUATRO:
+	Criar um arquivo de configuração do hibernate na raíz do projeto - no package src.
+	O arquivo deve ter o nome de "hibernate.cfg.xml" e nele deve conter as seguintes
+	propriedades:
+	
+	
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+	
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost/cursojsf</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">123456</property>
+		
+		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+	</session-factory>
+</hibernate-configuration>
+	
