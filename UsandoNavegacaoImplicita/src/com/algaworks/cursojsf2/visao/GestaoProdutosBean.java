@@ -27,9 +27,9 @@ public class GestaoProdutosBean {
 	
 	public String obterAjuda() {
 		if(this.produtos.isEmpty()) {
-			return "AjudaGestaoProdutos?faces-redirect=true";
+			return "sem-produtos";
 		}else {
-			return "AjudaGestaoProdutosTelefone?faces-redirect=true";
+			return "com-produtos";
 		}
 	}
 

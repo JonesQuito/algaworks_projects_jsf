@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15150653096670" configfile="/UsandoNavegacaoImplicita/WebContent/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15150653096670" configfile="/UsandoNavegacaoImplicita/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="CadastroProdutos.xhtml" id="pf151684104446115" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf151684122938126 pf151684149275332" inlinks="pf151684122938128" path="CadastroProdutos.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="AjudaGestaoProdutosTelefone.xhtml" id="pf151684122938129" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf151684122938126" path="AjudaGestaoProdutosTelefone.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" id="pf151684122938231" outlinks="pf151684122938128" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="AjudaGestaoProdutos.xhtml" id="pf151684149275333" referenceLink="//@navigationRule.1/@navigationCase.1/@toViewId|" inlinks="pf151684149275332" path="AjudaGestaoProdutos.xhtml"/>
+  <links id="pf151684122938126" target="pf151684122938129" source="pf151684104446115" outcome="com-produtos" redirect="true"/>
+  <links id="pf151684122938128" target="pf151684104446115" source="pf151684122938231" outcome="inicio" redirect="true"/>
+  <links id="pf151684149275332" target="pf151684149275333" source="pf151684104446115" outcome="sem-produtos" redirect="true"/>
+</pageflow:Pageflow>
