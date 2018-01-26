@@ -2,6 +2,7 @@
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -14,20 +15,29 @@ import javax.faces.event.ValueChangeEvent;
 import com.algaworks.cursojsf2.financeiro.model.Lancamento;
 import com.algaworks.cursojsf2.financeiro.model.Pessoa;
 import com.algaworks.cursojsf2.financeiro.model.TipoLancamento;
-import com.algaworks.cursojsf2.financeiro.service.GestaoPessoas;
+import com.algaworks.cursojsf2.financeiro.repository.Pessoas;
+import com.algaworks.cursojsf2.financeiro.util.FacesUtil;
+import com.algaworks.cursojsf2.financeiro.util.GestaoLancamentos;
+import com.algaworks.cursojsf2.financeiro.util.RegraNegocioException;
+import com.algaworks.cursojsf2.financeiro.util.Repositorios;
 
 @ManagedBean
 @ViewScoped
 public class CadastroLancamentoBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	
+	private Repositorios repositorios = new Repositorios();
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 	private Lancamento lancamento = new Lancamento();
-	
+		
+
 	@PostConstruct
-	public void init() {
-		GestaoPessoas gestaoPessoas = new GestaoPessoas();
-		this.pessoas = gestaoPessoas.listarTodas();
+	public void init() {	
+		Pessoas pessoas = repositorios.getPessoas();
+		this.pessoas = pessoas.todas();
 	}
+	
 	
 	public void lancamentoPagoModificado(ValueChangeEvent event) {
 		this.lancamento.setPago((Boolean)event.getNewValue());
@@ -36,27 +46,24 @@ public class CadastroLancamentoBean implements Serializable {
 	}
 	
 	
-	public void cadastrar() {
-				
-		if(!FacesContext.getCurrentInstance().getMessages().hasNext()) {
-			System.out.println("Tipo: " + this.lancamento.getTipo());
-			System.out.println("Pessoa: " + this.lancamento.getPessoa().getNome());
-			System.out.println("Descrição: " + this.lancamento.getDescricao());
-			System.out.println("Valor: " + this.lancamento.getValor());
-			System.out.println("Data vencimento: " + this.lancamento.getDataVencimento());
-			System.out.println("Conta paga: " + this.lancamento.isPago());
-			System.out.println("Data pagamento: " + this.lancamento.getDataPagamento());
+	public void salvar() {
+		GestaoLancamentos gestaoLancamentos = new GestaoLancamentos(this.repositorios.getLancamentos());
+		try {
+			gestaoLancamentos.salvar(this.lancamento);
 			
-			String mensagem = "Cadastro realizado com sucesso!";
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, mensagem);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			this.lancamento = new Lancamento();	
 			
-			this.lancamento = new Lancamento();
-		}
-		
-		
+			FacesUtil.adicionarMessagem(FacesMessage.SEVERITY_INFO, "Lançamento salvo com sucesso.");
+		} catch (RegraNegocioException e) {
+			FacesUtil.adicionarMessagem(FacesMessage.SEVERITY_ERROR, e.getMessage());
+		}					
 	}
 		
+	
+	public boolean isEditando() {
+		return lancamento.getCodigo() != null;
+	}
+	
 	public TipoLancamento[] getTiposLancamento() {
 		return TipoLancamento.values();
 	}
@@ -64,18 +71,19 @@ public class CadastroLancamentoBean implements Serializable {
 	public Lancamento getLancamento() {
 		return lancamento;
 	}
+	
+	
+	public void setLancamento(Lancamento lancamento) throws CloneNotSupportedException {
+		this.lancamento = lancamento;
+		if(this.lancamento == null) {
+			this.lancamento = new Lancamento();
+		}else {
+			this.lancamento = (Lancamento) lancamento.clone();
+		}
+	}
 
 	public List<Pessoa> getPessoas() {
 		return pessoas;
 	}
-	
-	
-	
-	
-
-	
-	
-	
-	
 
 }

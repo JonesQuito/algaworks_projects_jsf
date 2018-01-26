@@ -1,6 +1,5 @@
 package com.algaworks.cursojsf2.financeiro.validator;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.faces.application.FacesMessage;

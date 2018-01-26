@@ -5,6 +5,9 @@ create table pessoa(
     nome varchar(100) not null
 );
 
+alter table pessoa add column tipo varchar(15);
+alter table pessoa add column cpf_cnpj varchar(11) default '00000000000';
+
 
 create table lancamento(
 	codigo int not null auto_increment primary key,

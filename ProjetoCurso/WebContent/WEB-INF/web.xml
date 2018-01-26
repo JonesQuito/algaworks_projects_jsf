@@ -4,7 +4,7 @@
   
   <!-- ESPECIFICA O ARQUIVO PADRÃO A SER CARREGADO NA INICIALIZAÇÃO DO SISTEMA -->
   <welcome-file-list>
-  	<welcome-file>CadastroLancamento.xhtml</welcome-file>
+  	<welcome-file>Home.xhtml</welcome-file>
   </welcome-file-list>
   
   <!--  -->
@@ -53,4 +53,5 @@
     <filter-name>EncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  
 </web-app>

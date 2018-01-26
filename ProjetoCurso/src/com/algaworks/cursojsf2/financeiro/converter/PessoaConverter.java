@@ -6,19 +6,23 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 import com.algaworks.cursojsf2.financeiro.model.Pessoa;
-import com.algaworks.cursojsf2.financeiro.service.GestaoPessoas;
+import com.algaworks.cursojsf2.financeiro.repository.Pessoas;
+import com.algaworks.cursojsf2.financeiro.util.Repositorios;
 
 @FacesConverter(forClass = Pessoa.class)
 public class PessoaConverter implements Converter {
+	
+	Repositorios repositorios = new Repositorios();
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		Pessoa retorno = null;
-		
+
 		if(value != null) {
-			GestaoPessoas gestaoPessoas = new GestaoPessoas();
-			retorno = gestaoPessoas.buscarPorCodigo(new Integer(value));
+			Pessoas pessoas = repositorios.getPessoas();
+			retorno  = pessoas.porCodigo(new Integer(value));
 		}
+		
 		return retorno;
 	}
 
