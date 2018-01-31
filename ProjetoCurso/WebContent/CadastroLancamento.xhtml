@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	
 	
-	<ui:define name="titulo">#{cadastroLancamentoBean.editando ? 'Editando Lançamento' : 'Novo Lançamento'}</ui:define>
+	<ui:define name="titulo">#{cadastroLancamentoBean.editando ? msg.editing_entry : msg.new_entry}</ui:define>
 	
 	<ui:define name="conteudo">
 	
@@ -15,12 +15,13 @@
 			<f:viewParam name="codigo" value="#{cadastroLancamentoBean.lancamento}"/>
 		</f:metadata>
 		
-		<h1>#{cadastroLancamentoBean.editando ? 'Editando Lançamento' : 'Novo Lançamento'}</h1>
+		<h1>#{cadastroLancamentoBean.editando ? msg.editing_entry : msg.new_entry}</h1>
 	
 		<h:form id="frm">
 			
-			<h:button value="Novo" outcome="CadastroLancamento" styleClass="btnArredondado"/>
-			<h:button value="Consulta" outcome="ConsultaLancamento" styleClass="btnArredondado"/>
+			<h:button value="#{msg.new_msg}" outcome="CadastroLancamento" styleClass="btnArredondado"/>
+			<h:button value="#{msg.search}" outcome="ConsultaLancamento" styleClass="btnArredondado"
+				rendered="#{request.isUserInRole('consulta')}"/>
 			
 			<h:messages showDetail="false" showSummary="true"
 			styleClass="form-messages" errorClass="error"
@@ -28,34 +29,35 @@
 			
 			<h:panelGrid id="panel" columns="2" styleClass="form-grid"
 				columnClasses="label, campo">
-				<h:outputLabel value="Tipo"/>
+				
+				<h:outputLabel value="#{msg.type}"/>
 				<h:selectOneRadio value="#{cadastroLancamentoBean.lancamento.tipo}"
-					required="true" label="Tipo do lançamento">
+					required="true" label="#{msg.entry_type}">
 					<f:selectItems value="#{cadastroLancamentoBean.tiposLancamento}"
 						var="tipoLancamento" itemLabel="#{tipoLancamento.descricao}"
 						itemValue="#{tipoLancamento}"/>
 				</h:selectOneRadio>
 				
-				<h:outputLabel value="Pessoa"/>
-				<h:selectOneMenu value="#{cadastroLancamentoBean.lancamento.pessoa}" required="true" label="Pessoa">
-					<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+				<h:outputLabel value="#{msg.person}"/>
+				<h:selectOneMenu value="#{cadastroLancamentoBean.lancamento.pessoa}" required="true" label="#{msg.person}">
+					<f:selectItem itemLabel="#{msg.select}" noSelectionOption="true"/>
 					<f:selectItems value="#{cadastroLancamentoBean.pessoas}"
 						var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.nome}"/>
 				</h:selectOneMenu>
 				
-				<h:outputLabel value="Descrição"/>
+				<h:outputLabel value="#{msg.description}"/>
 				<h:inputText size="60" value="#{cadastroLancamentoBean.lancamento.descricao}"
-					required="true" label="Descrição"/>
+					required="true" label="#{msg.description}"/>
 				
-				<h:outputLabel value="Valor"/>
+				<h:outputLabel value="#{msg.amount}"/>
 				<h:inputText size="12" value="#{cadastroLancamentoBean.lancamento.valor}"
-					required="true" label="Valor">
+					required="true" label="#{msg.amount}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
 				</h:inputText>
 				
-				<h:outputLabel value="Data de vencimento"/>
+				<h:outputLabel value="#{msg.due_date}"/>
 				<h:inputText size="12" value="#{cadastroLancamentoBean.lancamento.dataVencimento}"
-					required="true" label="Data de vencimento">
+					required="true" label="#{msg.due_date}">
 					<f:convertDateTime pattern="dd/MM/yyyy"/>	
 				</h:inputText>
 				
@@ -69,13 +71,13 @@
 							pos por algum motivo pode ser que precisemos que apenas alguns componentes do formulário seja processados
 							Outra forma de fazer isso: onchange="jsf.ajax.request(this, event, {execut: '@frm', render: 'frm:panel'})"
 						-->
-					<h:outputLabel value="Conta Paga" for="pagoCheckbox"/>
+					<h:outputLabel value="#{msg.paid_bill}" for="pagoCheckbox"/>
 				</h:panelGroup>
 				
 				
-				<h:outputLabel value="Data de pagamento" rendered="#{cadastroLancamentoBean.lancamento.pago}"/>
+				<h:outputLabel value="#{msg.payment_date}" rendered="#{cadastroLancamentoBean.lancamento.pago}"/>
 					<h:inputText size="12" id="dataPagamento" value="#{cadastroLancamentoBean.lancamento.dataPagamento}"
-						label="Data de pagamento"
+						label="#{msg.payment_date}"
 						rendered="#{cadastroLancamentoBean.lancamento.pago}">
 						<f:attribute name="checado" value="#{cadastroLancamentoBean.lancamento.pago}"/>
 						<f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -84,7 +86,7 @@
 					</h:inputText>
 				
 				<h:outputLabel/>
-				<h:commandButton value="Salvar" action="#{cadastroLancamentoBean.salvar}"
+				<h:commandButton value="#{msg.save}" action="#{cadastroLancamentoBean.salvar}"
 					styleClass="btnArredondado">
 					<f:ajax execute="@form" render="@all" />	
 				</h:commandButton>

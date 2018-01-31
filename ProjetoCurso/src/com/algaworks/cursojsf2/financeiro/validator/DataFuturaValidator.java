@@ -9,6 +9,7 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+import com.algaworks.cursojsf2.financeiro.util.FacesUtil;
 import com.sun.faces.util.MessageFactory;
 
 @FacesValidator("com.algaworks.DataFutura")
@@ -22,7 +23,7 @@ public class DataFuturaValidator implements Validator {
 		if(data != null && data.after(new Date())) {
 			Object label = MessageFactory.getLabel(context, componet);
 			
-			String descricaoErro = label + " não pode ser uma data futura.";
+			String descricaoErro = label + " " + FacesUtil.getMessageI18n("cannot_be_a_future_date");
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					descricaoErro, descricaoErro);
 			throw new ValidatorException(message);

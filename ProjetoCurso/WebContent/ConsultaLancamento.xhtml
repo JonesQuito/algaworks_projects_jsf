@@ -2,7 +2,8 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:aw="http://java.sun.com/jsf/composite/algaworks">
 	
 	
 	<ui:define name="titulo">Lançamentos</ui:define>
@@ -12,11 +13,12 @@
 		<h:outputStylesheet library="css" name="consulta-lancamentos.css"/>
 		<h:outputStylesheet library="css" name="btn.css"/>
 	
-		<h1>Lançamentos</h1>
+		<h1>#{msg.entries}</h1>
 		
 		<h:form id="frm">
 				
-			<h:button value="Novo lançamento" outcome="CadastroLancamento" styleClass="btnArredondado"/>
+			<h:button value="#{msg.new_entry}" outcome="CadastroLancamento" styleClass="btnArredondado"
+					rendered="#{request.isUserInRole('cadastro')}"/>
 			
 			<h:messages showDetail="false" showSummary="true"
 				styleClass="form-messages" errorClass="error"
@@ -34,30 +36,30 @@
 				
 				<h:column>
 					<f:facet name="header">
-						Pessoa
+						#{msg.person}
 					</f:facet>
 					<h:outputText value="#{lancamento.pessoa.nome}"/>
 				</h:column>
 				
 				<h:column>
 					<f:facet name="header">
-						Descrição
+						#{msg.description}
 					</f:facet>
 					<h:outputText value="#{lancamento.descricao}"/>
 				</h:column>
 				
 				<h:column>
-				<f:facet name="header">
-						Valor
+					<f:facet name="header">
+						#{msg.amount}
 					</f:facet>
-					<h:outputText value="#{lancamento.valor}" styleClass="#{lancamento.tipo.toString().toLowerCase()}">
-						<f:convertNumber locale="pt_BR" currencySymbol="R$" type="currency"/>
-					</h:outputText>
+					
+					<aw:outputValorLancamento lancamentoBean="#{lancamento}"/>
+					
 				</h:column>
 				
 				<h:column>
 					<f:facet name="header">
-						Vencimento
+						#{msg.due_date}
 					</f:facet>
 					<h:outputText value="#{lancamento.dataVencimento}">
 						<f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -65,8 +67,8 @@
 				</h:column>
 				
 				<h:column>
-				<f:facet name="header">
-						Pagamento
+					<f:facet name="header">
+						#{msg.payment_date}
 					</f:facet>
 					<h:outputText value="#{lancamento.dataPagamento}">
 						<f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -80,7 +82,7 @@
 					<h:outputText value="#{lancamento.pago? 'Pago': 'Aberto'}"/>
 				</h:column>
 				
-				<h:column>
+				<h:column rendered="#{request.isUserInRole('cadastro')}">
 					<h:link outcome="CadastroLancamento">
 					<h:graphicImage value="/imagens/editar.png"/>		
 					<f:param name="codigo" value="#{lancamento.codigo}"></f:param>			

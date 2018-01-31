@@ -9,6 +9,7 @@ import javax.faces.convert.FacesConverter;
 
 import com.algaworks.cursojsf2.financeiro.model.Lancamento;
 import com.algaworks.cursojsf2.financeiro.repository.Lancamentos;
+import com.algaworks.cursojsf2.financeiro.util.FacesUtil;
 import com.algaworks.cursojsf2.financeiro.util.Repositorios;
 
 @FacesConverter(forClass=Lancamento.class)
@@ -24,7 +25,7 @@ public class LancamentoConverter implements Converter {
 			retorno = lancamentos.porCodigo(new Integer(value));
 			
 			if(retorno == null) {
-				String descricaoErro = "Lancamento não existe.";
+				String descricaoErro = FacesUtil.getMessageI18n("entry_does_not_exist");
 				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						descricaoErro, descricaoErro);
 				

@@ -6,7 +6,21 @@
     version="2.2">
     
     <application>
-    	<message-bundle>com.algaworks.cursojsf2.financeiro.resources.Messages</message-bundle>
+    	<message-bundle>com.algaworks.cursojsf2.financeiro.resources.validacao</message-bundle>
+    	
+    	<resource-bundle>
+    		<base-name>com.algaworks.cursojsf2.financeiro.resources.sistema</base-name>
+    		<var>msg</var>
+    	</resource-bundle>
+    	
+	    <locale-config>
+	    	<default-locale>pt</default-locale>
+	    	<supported-locale>pt</supported-locale>
+	    	<supported-locale>en</supported-locale>
+	    </locale-config>
+    		
+    	
     </application>
+    
 
 </faces-config>

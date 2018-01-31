@@ -8,6 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 
 public class FacesUtil {
 	
+	public static String getMessageI18n(String chave) {
+		FacesContext contex = FacesContext.getCurrentInstance();
+		String msg = contex.getApplication().getResourceBundle(contex, "msg").getString(chave);
+		return msg;
+	}
+	
 	public static void adicionarMessagem(Severity tipo, String msg) {
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(tipo, msg, msg));
